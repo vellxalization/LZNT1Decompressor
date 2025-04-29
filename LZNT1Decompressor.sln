@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LZNT1Decompressor", "LZNT1Decompressor\LZNT1Decompressor.csproj", "{3A6E9AD7-EB1A-4A6C-85FC-60E7886805DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{74918643-22A9-4FFD-8258-4D64FD30D764}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A6E9AD7-EB1A-4A6C-85FC-60E7886805DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6E9AD7-EB1A-4A6C-85FC-60E7886805DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6E9AD7-EB1A-4A6C-85FC-60E7886805DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6E9AD7-EB1A-4A6C-85FC-60E7886805DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74918643-22A9-4FFD-8258-4D64FD30D764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74918643-22A9-4FFD-8258-4D64FD30D764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74918643-22A9-4FFD-8258-4D64FD30D764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74918643-22A9-4FFD-8258-4D64FD30D764}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
