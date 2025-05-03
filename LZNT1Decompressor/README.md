@@ -117,8 +117,8 @@ For example: we have a backreference value of 0x5001 (0b_01010000_00000001).
 1. Read a flags byte;
 2. For each bit in flags, starting from the least significant:
 <br>2.1. If there is no data for the bit (i.e. the compressed chunk has ended before each bit was iterated), break;
-<br>2.1. If the bit is to 0, copy the corresponding byte to the decompression buffer;  
-<br>2.2. Otherwise, read and parse 2 corresponding bytes as a backreference and use it copy existing data from the decompression buffer;
+<br>2.2. If the bit is to 0, copy the corresponding byte to the decompression buffer;
+<br>2.3. Otherwise, read and parse 2 corresponding bytes as a backreference and use it copy existing data from the decompression buffer;
 3. Repeat until the chunk is not fully decompressed.
 
 ## Sources
