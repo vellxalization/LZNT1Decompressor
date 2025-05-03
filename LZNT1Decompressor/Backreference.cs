@@ -1,5 +1,9 @@
 ﻿namespace LZNT1Decompressor;
 
+/// <summary>
+/// A struct representing a backreference.
+/// Both size and offset contain "true" values and don't require any manipulations before using them
+/// </summary>
 public readonly struct Backreference
 {
     public int Offset { get; init; }
@@ -7,8 +11,9 @@ public readonly struct Backreference
     
     public Backreference(Span<byte> rawBackreference, int positionInsideBlock)
     {
-        const int offsetConst = 1; // offset in compressed tuple is stored as "true offset - 1" since offset of 0 is impossible
-        const int sizeConst = 3; // size in compressed tuple is stored as "true size - 3" since backreference size is 2 bytes, hence there is no point in compressing 1- or 2-byte long substring
+        const int offsetConst = 1;
+        const int sizeConst = 3;
+        
         var backreference = (short)(rawBackreference[0] | rawBackreference[1] << 8);
         var info = GetBackreferenceInfo(positionInsideBlock);
         var size = ((backreference & info.LengthMask)) + sizeConst;
@@ -18,15 +23,15 @@ public readonly struct Backreference
         Size = size;
     }
     
-    private static (ushort OffsetMask, ushort LengthMask, int OffsetShift) GetBackreferenceInfo(int indexInDecompressedBlock)
+    private static (ushort OffsetMask, ushort LengthMask, int OffsetShift) GetBackreferenceInfo(int indexInDecompressedChunk)
     {
-        if (indexInDecompressedBlock is < 0 or > 4096)
-            throw new ArgumentException($"Position must be between 0 and 4096, got: {indexInDecompressedBlock}");
+        if (indexInDecompressedChunk is < 0 or > 4096)
+            throw new ArgumentException($"Position must be between 0 and 4096, got: {indexInDecompressedChunk}");
         
         const ushort fullBitMask = 0b_11111111_11111111;
         unchecked
         {
-            return (indexInDecompressedBlock - 1) switch
+            return (indexInDecompressedChunk - 1) switch
             {
                 < 0b10000 => ((ushort)(fullBitMask << 12), fullBitMask >> 4, 12),
                 < 0b100000 => ((ushort)(fullBitMask << 11), fullBitMask >> 5, 11),

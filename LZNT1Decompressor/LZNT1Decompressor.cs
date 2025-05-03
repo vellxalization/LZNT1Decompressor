@@ -1,7 +1,17 @@
 ﻿namespace LZNT1Decompressor;
 
+/// <summary>
+/// A class used to decompress LZNT1-compressed data
+/// </summary>
 public partial class LZNT1Decompressor
 {
+    /// <summary>
+    /// Decompress LZNT1-compressed data
+    /// </summary>
+    /// <param name="compressedData">Data to decompress</param>
+    /// <param name="decompressionBufferSize">Size of the decompression buffer. Using small value might result in exception if the decompressed data is too big</param>
+    /// <param name="bytesDecompressed">Amount of bytes decompressed. Use to trim unused zeroes from buffer</param>
+    /// <returns>Decompressed data</returns>
     public virtual byte[] Decompress(byte[] compressedData, int decompressionBufferSize, out int bytesDecompressed)
     {
         var compressedSpan = compressedData.AsSpan();
@@ -15,14 +25,14 @@ public partial class LZNT1Decompressor
                 break;
             
             pointer += 2;
-            var chunk = compressedSpan.Slice(pointer, chunkHeader.ChunkSize + 1);
+            var chunk = compressedSpan.Slice(pointer, chunkHeader.ChunkSize);
             if (chunkHeader.IsCompressed)
                 DecompressChunk(decompressionBuffer, chunk);
             else
                 decompressionBuffer.InsertRange(chunk);
             
-            decompressionBuffer.CloseCurrentBlock();
-            pointer += chunkHeader.ChunkSize + 1;
+            decompressionBuffer.CloseCurrentChunk();
+            pointer += chunkHeader.ChunkSize;
         }
 
         bytesDecompressed = decompressionBuffer.InsertPointer;
