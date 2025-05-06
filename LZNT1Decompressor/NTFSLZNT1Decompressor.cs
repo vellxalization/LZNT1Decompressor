@@ -14,8 +14,11 @@ public class NTFSLZNT1Decompressor : LZNT1Decompressor
         int pointer = 0;
         while (pointer < compressedSpan.Length)
         {
-            if (compressedSpan[pointer++] == 0)
+            if (compressedSpan[pointer] == 0)
+            {
+                ++pointer;
                 continue;
+            }
             
             var rawChunkHeader = compressedSpan.Slice(pointer, 2);
             var chunkHeader = new CompressionChunkHeader(rawChunkHeader);
