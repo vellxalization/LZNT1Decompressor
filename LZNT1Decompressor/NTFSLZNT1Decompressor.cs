@@ -24,14 +24,14 @@ public class NTFSLZNT1Decompressor : LZNT1Decompressor
             var chunkHeader = new CompressionChunkHeader(rawChunkHeader);
             
             pointer += 2;
-            var chunk = compressedSpan.Slice(pointer, chunkHeader.ChunkSize + 1);
+            var chunk = compressedSpan.Slice(pointer, chunkHeader.ChunkSize);
             if (chunkHeader.IsCompressed)
                 DecompressChunk(decompressionBuffer, chunk);
             else
                 decompressionBuffer.InsertRange(chunk);
             
             decompressionBuffer.CloseCurrentChunk();
-            pointer += chunkHeader.ChunkSize + 1;
+            pointer += chunkHeader.ChunkSize;
         }
 
         bytesDecompressed = decompressionBuffer.InsertPointer;
